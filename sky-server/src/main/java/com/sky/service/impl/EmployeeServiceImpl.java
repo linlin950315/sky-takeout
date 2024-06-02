@@ -1,5 +1,8 @@
 package com.sky.service.impl;
 
+import com.sky.dto.EmployeeDTO;
+import org.apache.ibatis.annotations.Insert;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +15,9 @@ import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
 import com.sky.service.EmployeeService;
+
+import java.time.LocalDateTime;
+
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -53,5 +59,34 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 3、返回实体对象
         return employee;
     }
+
+    /**
+     * 新增员工
+     * DTO转成employee实体
+     *
+     * @param employeeDTO
+     */
+    public void save(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        //employee.setName(employeeDTO.getName()); 不用这样一个一个设
+        employee.setName(employeeDTO.getName());
+        //copy properties from Employee.java
+        BeanUtils.copyProperties(employeeDTO, employee);
+
+        //
+        employee.setStatus(StatusConstant.ENABLE);
+        employee.setPassword("123456");
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+        //TODO
+        employee.setCreateUser(10L);
+        employee.setUpdateUser(10L);
+
+        //    上面有@Autowiredprivate EmployeeMapper employeeMapper;
+        //    这里直接调用mapper的insert（）
+
+        employeeMapper.insert(employee);
+    }
+
 
 }
