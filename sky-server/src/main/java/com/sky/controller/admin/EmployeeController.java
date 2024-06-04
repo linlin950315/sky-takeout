@@ -88,10 +88,10 @@ public class EmployeeController {
      */
     @GetMapping("/page") // 上面已经有大路径了@RequestMapping("/admin/employee")
     @ApiOperation("员工分页查询")
-    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {
+    public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {// EmployeePageQueryDTO封装的是name page
+                                                                               // 和pageSize
         log.info("员工分页查询参数为:{}", employeePageQueryDTO);
-        PageResult pr = employeeService.pageQuery(employeePageQueryDTO);
-        return Result.success(pr);
-
+        PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
+        return Result.success(pageResult);
     }
 }
