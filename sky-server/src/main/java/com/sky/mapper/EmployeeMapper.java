@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 
@@ -34,8 +35,12 @@ public interface EmployeeMapper {
      * 分页查询方法
      * 是动态sql，不用注解
      * sql写映射文件里去 resources-EmplpyeeMapper.xml
-     *
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * 根据id查员工信息
+     */
+    @Select("select * from employee where id= #{id}")
+    EmployeeDTO getById(Long id);
 }

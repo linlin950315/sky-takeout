@@ -112,4 +112,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total, records);
 
     }
+
+    /**
+     * 根据id查员工信息
+     */
+    public EmployeeDTO getById(long id) {
+        EmployeeDTO employeeInfo = employeeMapper.getById(id);
+        return employeeInfo;
+    }
+
 }

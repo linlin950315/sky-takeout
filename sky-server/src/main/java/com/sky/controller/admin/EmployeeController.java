@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -94,4 +95,15 @@ public class EmployeeController {
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 根据id查员工信息
+     */
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查员工信息")
+    public Result<EmployeeDTO> getById(@PathVariable Long id) {
+        EmployeeDTO employeeInfo = employeeService.getById(id);
+        return Result.success(employeeInfo);
+    }
+
 }

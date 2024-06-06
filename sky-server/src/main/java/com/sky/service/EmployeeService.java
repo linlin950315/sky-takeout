@@ -24,4 +24,9 @@ public interface EmployeeService {
      */
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
+    /**
+     * 根据id查员工信息
+     */
+    // Employee getById(Long id);
+    EmployeeDTO getById(long id);
 }
