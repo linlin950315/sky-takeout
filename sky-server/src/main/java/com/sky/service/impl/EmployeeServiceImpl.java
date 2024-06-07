@@ -95,7 +95,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * 分页查询
      *
-     * @param employeeQueryDT
+     * @param employeeQueryDTO
      * @return
      *         public static <E> Page<E> startPage(int pageNum, int pageSize) {
      *         return startPage(pageNum, pageSize, DEFAULT_COUNT);
@@ -116,9 +116,32 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * 根据id查员工信息
      */
-    public EmployeeDTO getById(long id) {
-        EmployeeDTO employeeInfo = employeeMapper.getById(id);
+    public Employee getById(long id) {
+        Employee employeeInfo = employeeMapper.getById(id);
         return employeeInfo;
+    }
+
+    /**
+     * TODO 查
+     * Employee employee = Employee.builder()
+     * .status(status)
+     * .id(id)
+     * .build();
+     * 启用禁用 修改员工账号状态
+     */
+    public void statusSetting(Integer status, Long id) {
+        // mapper 动态更新 传入Employee实体对象 设置属性
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+        employeeMapper.update(employee);
+    }
+
+    /**
+     * 编辑员工信息
+     */
+    public void updateEmployeeInfo(EmployeeDTO employeeDTO) {
     }
 
 }

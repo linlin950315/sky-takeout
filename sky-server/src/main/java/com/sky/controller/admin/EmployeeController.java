@@ -73,13 +73,13 @@ public class EmployeeController {
         return Result.success();
     }
 
-    /**
-     * 新增员工数据
-     */
+    // /**
+    // * 新增员工数据
+    // */
     @PostMapping
-    @ApiOperation("新增员工")
+    @ApiOperation("新增员工1")
     public Result save(@RequestBody EmployeeDTO employeeDTO) {
-        log.info("新增员工:{}", employeeDTO);
+        log.info("新增员工1:{}", employeeDTO);
         employeeService.save(employeeDTO);
         return Result.success();
     }
@@ -90,7 +90,7 @@ public class EmployeeController {
     @GetMapping("/page") // 上面已经有大路径了@RequestMapping("/admin/employee")
     @ApiOperation("员工分页查询")
     public Result<PageResult> page(EmployeePageQueryDTO employeePageQueryDTO) {// EmployeePageQueryDTO封装的是name page
-                                                                               // 和pageSize
+        // 和pageSize
         log.info("员工分页查询参数为:{}", employeePageQueryDTO);
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
@@ -100,10 +100,41 @@ public class EmployeeController {
      * 根据id查员工信息
      */
     @GetMapping("/{id}")
-    @ApiOperation("根据id查员工信息")
-    public Result<EmployeeDTO> getById(@PathVariable Long id) {
-        EmployeeDTO employeeInfo = employeeService.getById(id);
+    @ApiOperation("根据Id查员工信息")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee employeeInfo = employeeService.getById(id);
         return Result.success(employeeInfo);
     }
+
+    // /**
+    // * 根据id查员工信息
+    // */
+    @GetMapping("/test/{id}")
+    @ApiOperation("根据Id查员工信息2")
+    public Result<Employee> getTestById(@PathVariable Long id) {
+        Employee employeeInfo = employeeService.getById(id);
+        return Result.success(employeeInfo);
+    }
+
+    /**
+     * 启用禁用 修改员工账号状态
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用修改员工账号状态")
+    public Result statusSetting(@PathVariable Integer status, Long id) {
+        log.info("启用禁用员工账号:{},{}", status, id);
+        employeeService.statusSetting(status, id);
+        return Result.success();
+    }
+
+    /**
+     * TODO 编辑员工信息
+     */
+    // @PutMapping()
+    // @ApiOperation("编辑员工信息")
+    // public Result updateEmployeeInfo(@RequestBody EmployeeDTO employeeDTO) {
+    // log.info("编辑员工信息:{}", employeeDTO);
+    // return null;
+    // }
 
 }

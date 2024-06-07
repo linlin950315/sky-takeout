@@ -27,6 +27,15 @@ public interface EmployeeService {
     /**
      * 根据id查员工信息
      */
-    // Employee getById(Long id);
-    EmployeeDTO getById(long id);
+    Employee getById(long id);
+
+    /**
+     * 编辑员工信息
+     */
+    void updateEmployeeInfo(EmployeeDTO employeeDTO);
+
+    /**
+     * 启用禁用 修改员工账号状态
+     */
+    void statusSetting(Integer status, Long id);
 }
