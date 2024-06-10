@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,14 +74,13 @@ public class EmployeeController {
         return Result.success();
     }
 
-    // /**
-    // * 新增员工数据
-    // */
+    /**
+     * 新增员工数据
+     */
     @PostMapping
-    @ApiOperation("新增员工1")
-    public Result save(@RequestBody EmployeeDTO employeeDTO) {
+    public Result insertEmployee(@RequestBody EmployeeDTO employeeDTO) { // 注解@RequestBody用于接收前端传递给后端的、JSON对象的字符串
         log.info("新增员工1:{}", employeeDTO);
-        employeeService.save(employeeDTO);
+        employeeService.insertEmployee(employeeDTO);
         return Result.success();
     }
 
@@ -97,44 +97,34 @@ public class EmployeeController {
     }
 
     /**
-     * 根据id查员工信息
-     */
-    @GetMapping("/{id}")
-    @ApiOperation("根据Id查员工信息")
-    public Result<Employee> getById(@PathVariable Long id) {
-        Employee employeeInfo = employeeService.getById(id);
-        return Result.success(employeeInfo);
-    }
-
-    // /**
-    // * 根据id查员工信息
-    // */
-    @GetMapping("/test/{id}")
-    @ApiOperation("根据Id查员工信息2")
-    public Result<Employee> getTestById(@PathVariable Long id) {
-        Employee employeeInfo = employeeService.getById(id);
-        return Result.success(employeeInfo);
-    }
-
-    /**
      * 启用禁用 修改员工账号状态
      */
     @PostMapping("/status/{status}")
-    @ApiOperation("启用禁用修改员工账号状态")
-    public Result statusSetting(@PathVariable Integer status, Long id) {
+    public Result statusSetting(@PathVariable Integer status, Long id) { // @PathVariable 是 Spring MVC 中用于将 URL
+                                                                         // 路径中的变量绑定到控制器方法参数的注解。这里将 URL 路径中的 status
+                                                                         // 部分的值绑定到方法参数 status 上
         log.info("启用禁用员工账号:{},{}", status, id);
         employeeService.statusSetting(status, id);
         return Result.success();
     }
 
+    // 修改信息功能 先查 再编辑 两个功能两个接口
+    /**
+     * 根据id查员工信息
+     */
+    @GetMapping("/{id}")
+    public Result<Employee> getById(@PathVariable Long id) {
+        Employee employeeInfo = employeeService.getById(id);
+        return Result.success(employeeInfo);
+    }
+
     /**
      * TODO 编辑员工信息
      */
-    // @PutMapping()
-    // @ApiOperation("编辑员工信息")
-    // public Result updateEmployeeInfo(@RequestBody EmployeeDTO employeeDTO) {
-    // log.info("编辑员工信息:{}", employeeDTO);
-    // return null;
-    // }
-
+    @PutMapping
+    public Result updateEmployeeInfo(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编辑员工信息:{}", employeeDTO);
+        employeeService.updateEmployeeInfo(employeeDTO);
+        return Result.success();
+    }
 }

@@ -46,7 +46,6 @@ public interface EmployeeMapper {
         /**
          * 启用禁用 修改员工账号状态
          */
-        // Result startOrStop(Integer status, Long id);
         void update(Employee employee);
 
         /**

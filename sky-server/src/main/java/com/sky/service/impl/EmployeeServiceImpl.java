@@ -70,7 +70,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      *
      * @param employeeDTO
      */
-    public void save(EmployeeDTO employeeDTO) {
+    public void insertEmployee(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         // employee.setName(employeeDTO.getName()); 不用这样一个一个设
         employee.setName(employeeDTO.getName());
@@ -114,14 +114,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
-     * 根据id查员工信息
-     */
-    public Employee getById(long id) {
-        Employee employeeInfo = employeeMapper.getById(id);
-        return employeeInfo;
-    }
-
-    /**
      * TODO 查
      * Employee employee = Employee.builder()
      * .status(status)
@@ -139,9 +131,25 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     /**
+     * 根据id查员工信息
+     */
+    public Employee getById(long id) {
+        Employee employeeInfo = employeeMapper.getById(id);
+        return employeeInfo;
+    }
+
+    /**
      * 编辑员工信息
      */
     public void updateEmployeeInfo(EmployeeDTO employeeDTO) {
+        Employee employee2 = new Employee();
+        // copy properties from Employee.java
+        BeanUtils.copyProperties(employeeDTO, employee2);
+        // EmployeeDTO是前端接收 以下是另外几个生成的属性
+        employee2.setUpdateTime(LocalDateTime.now());
+        // 动态获取登陆人信息 这个是基于JWT令牌的认证流程
+        employee2.setUpdateUser(BaseContext.getCurrentId());
+        // 传入mapper
+        employeeMapper.update(employee2);
     }
-
 }

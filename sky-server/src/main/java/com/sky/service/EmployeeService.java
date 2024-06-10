@@ -16,13 +16,17 @@ public interface EmployeeService {
      */
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
-    void save(EmployeeDTO employeeDTO);
+    void insertEmployee(EmployeeDTO employeeDTO);
 
     /*
      * 分页查询
-     * 
      */
     PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * 启用禁用 修改员工账号状态
+     */
+    void statusSetting(Integer status, Long id);
 
     /**
      * 根据id查员工信息
@@ -34,8 +38,4 @@ public interface EmployeeService {
      */
     void updateEmployeeInfo(EmployeeDTO employeeDTO);
 
-    /**
-     * 启用禁用 修改员工账号状态
-     */
-    void statusSetting(Integer status, Long id);
 }

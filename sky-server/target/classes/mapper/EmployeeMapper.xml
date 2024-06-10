@@ -8,10 +8,12 @@
 
 <update id="update" parameterType="Employee"> update employee <set>
         <if test="name!=null">name = #{name},</if>
-        <if test="phone!=null">phone = #{phone},</if>
-        <if test="username!=null">usernam e= #{username},</if>
-        <if test="password!=null">password = #{password},</if>
-        <if test="sex!=null">sex=#{sex},</if>
-        <if test="status!=null">status=#{status},</if>
+        <!-- <if test="phone!=null">phone = #{phone},</if> -->
+        <if test="username!=null">username = #{username},</if>
+        <!-- <if test="password!=null">password = #{password},</if>
+        <if test="sex!=null">sex = #{sex},</if> -->
+        <if test="status!=null">status = #{status},</if>
+        <if test="updateTime!=null">update_Time = #{updateTime},</if>
+        <if test="updateUser!=null">update_User = #{updateUser},</if>
 </set> where id = #{id} </update>
 </mapper>
