@@ -73,7 +73,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void insertEmployee(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         // employee.setName(employeeDTO.getName()); 不用这样一个一个设
-        employee.setName(employeeDTO.getName());
         // copy properties from Employee.java
         BeanUtils.copyProperties(employeeDTO, employee);
 
