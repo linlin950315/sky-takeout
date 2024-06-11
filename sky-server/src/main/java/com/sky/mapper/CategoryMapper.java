@@ -1,5 +1,6 @@
 package com.sky.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -37,5 +38,11 @@ public interface CategoryMapper {
      */
     @Select("select * from category where type= #{type}")
     Category getByType(int type);
+
+    /**
+     * 根据id删除分类
+     */
+    @Delete("delete from category where id= #{id}")
+    void deleteById(Long id);
 
 }

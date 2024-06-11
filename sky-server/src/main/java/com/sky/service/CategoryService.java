@@ -26,4 +26,14 @@ public interface CategoryService {
      * 根据 类型type字段 查询分类查菜品信息
      */
     Category getByType(int type);
+
+    /**
+     * 修改分类
+     */
+    void updateCategoryInfo(CategoryDTO categoryDTO);
+
+    /**
+     * 根据id删除分类
+     */
+    void deleteById(Long id);
 }
