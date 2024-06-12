@@ -1,6 +1,5 @@
 package com.sky.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -11,7 +10,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
-import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
@@ -36,15 +34,17 @@ public class CatergoryServiceImpl implements CategoryService {
         // copy properties from Category.java
         BeanUtils.copyProperties(categoryDTO, category);
         // categoryDTO是前端接收id type name sort
+
         // 以下是status属性
         category.setStatus(StatusConstant.DISABLE);
+        // day3 自动填充@AutoFill(value = OperationType.UPDATE) 以下就不需要了
 
-        category.setCreateTime(LocalDateTime.now());
-        category.setUpdateTime(LocalDateTime.now());
+        // category.setCreateTime(LocalDateTime.now());
+        // category.setUpdateTime(LocalDateTime.now());
 
-        // 动态获取登陆人信息 这个是基于JWT令牌的认证流程
-        category.setCreateUser(BaseContext.getCurrentId());
-        category.setUpdateUser(BaseContext.getCurrentId());
+        // // 动态获取登陆人信息 这个是基于JWT令牌的认证流程
+        // category.setCreateUser(BaseContext.getCurrentId());
+        // category.setUpdateUser(BaseContext.getCurrentId());
 
         // 封装
         categoryMapper.insert(category);
@@ -96,8 +96,8 @@ public class CatergoryServiceImpl implements CategoryService {
         // copy properties from Category.java
         BeanUtils.copyProperties(categoryDTO, category);
         // 设置修改时间、修改人
-        category.setUpdateTime(LocalDateTime.now());
-        category.setUpdateUser(BaseContext.getCurrentId());
+        // category.setUpdateTime(LocalDateTime.now());
+        // category.setUpdateUser(BaseContext.getCurrentId());
 
         categoryMapper.update(category);
     }

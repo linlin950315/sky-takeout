@@ -1,6 +1,5 @@
 package com.sky.service.impl;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -11,7 +10,6 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
-import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.dto.EmployeePageQueryDTO;
@@ -79,12 +77,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         // EmployeeDTO是前端接收 以下是另外几个生成的属性
         employee.setStatus(StatusConstant.ENABLE);
         employee.setPassword("123456");
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
+        // employee.setCreateTime(LocalDateTime.now());
+        // employee.setUpdateTime(LocalDateTime.now());
 
-        // 动态获取登陆人信息 这个是基于JWT令牌的认证流程
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        // // 动态获取登陆人信息 这个是基于JWT令牌的认证流程
+        // employee.setCreateUser(BaseContext.getCurrentId());
+        // employee.setUpdateUser(BaseContext.getCurrentId());
         // 上面有@Autowiredprivate EmployeeMapper employeeMapper;
         // 这里直接调用mapper的insert（）
         // 封装
@@ -145,9 +143,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         // copy properties from Employee.java
         BeanUtils.copyProperties(employeeDTO, employee2);
         // EmployeeDTO是前端接收 以下是另外几个生成的属性
-        employee2.setUpdateTime(LocalDateTime.now());
-        // 动态获取登陆人信息 这个是基于JWT令牌的认证流程
-        employee2.setUpdateUser(BaseContext.getCurrentId());
+        // employee2.setUpdateTime(LocalDateTime.now());
+        // // 动态获取登陆人信息 这个是基于JWT令牌的认证流程
+        // employee2.setUpdateUser(BaseContext.getCurrentId());
         // 传入mapper
         employeeMapper.update(employee2);
     }
