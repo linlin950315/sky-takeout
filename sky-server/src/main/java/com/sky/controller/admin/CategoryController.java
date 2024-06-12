@@ -72,7 +72,7 @@ public class CategoryController {
      * 根据 类型type字段 查询分类查菜品信息
      */
     @GetMapping("/list/{type}")
-    public Result<Category> getByType(@PathVariable("type") int type) { // Long id; int type?
+    public Result<Category> getByType(@PathVariable("type") int type) {
         Category categoryInfo = categoryService.getByType(type);
         return Result.success(categoryInfo);
     }

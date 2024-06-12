@@ -9,12 +9,16 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.CategoryDTO;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.CategoryMapper;
+import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.CategoryService;
 
@@ -33,7 +37,7 @@ public class CatergoryServiceImpl implements CategoryService {
         BeanUtils.copyProperties(categoryDTO, category);
         // categoryDTO是前端接收id type name sort
         // 以下是status属性
-        category.setStatus(StatusConstant.ENABLE); // TODO 改成disable
+        category.setStatus(StatusConstant.DISABLE);
 
         category.setCreateTime(LocalDateTime.now());
         category.setUpdateTime(LocalDateTime.now());
@@ -67,7 +71,7 @@ public class CatergoryServiceImpl implements CategoryService {
      */
     public void statusSetting(Integer status, Long id) {
 
-        // mapper 动态更新 传入Employee实体对象 设置属性
+        // mapper 动态更新 传入Category实体对象 设置属性
         Category category = Category.builder()
                 .status(status)
                 .id(id)
@@ -101,22 +105,25 @@ public class CatergoryServiceImpl implements CategoryService {
     /**
      * 根据id删除分类
      */
-    public void deleteById(Long id) {
-        // //查询当前分类是否关联了菜品，如果关联了就抛出业务异常
-        // Integer count = dishMapper.countByCategoryId(id);
-        // if(count > 0){
-        // //当前分类下有菜品，不能删除
-        // throw new
-        // DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
-        // }
+    @Autowired
+    private DishMapper dishMapper;
+    @Autowired
+    private SetmealMapper setmealMapper;
 
-        // //查询当前分类是否关联了套餐，如果关联了就抛出业务异常
-        // count = setmealMapper.countByCategoryId(id);
-        // if(count > 0){
-        // //当前分类下有菜品，不能删除
-        // throw new
-        // DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
-        // }
+    public void deleteById(Long id) {
+        // 查询当前分类是否关联了菜品，如果关联了就抛出业务异常
+        Integer count = dishMapper.countByCategoryId(id);
+        if (count > 0) {
+            // 当前分类下有菜品，不能删除
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_DISH);
+        }
+
+        // 查询当前分类是否关联了套餐，如果关联了就抛出业务异常
+        count = setmealMapper.countByCategoryId(id);
+        if (count > 0) {
+            // 当前分类下有菜品，不能删除
+            throw new DeletionNotAllowedException(MessageConstant.CATEGORY_BE_RELATED_BY_SETMEAL);
+        }
 
         // 删除分类数据
         categoryMapper.deleteById(id);
