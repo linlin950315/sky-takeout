@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin/employee")
 @Slf4j
 public class EmployeeController {
-
+    // autowired依赖注入
     @Autowired
     private EmployeeService employeeService;
     @Autowired
