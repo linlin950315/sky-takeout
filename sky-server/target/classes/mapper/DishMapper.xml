@@ -3,7 +3,7 @@
 <mapper namespace="com.sky.mapper.DishMapper">
 
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">  <!-- insert语句产生的主键值附给id-->
     insert into dish (name, price, status, category_id, description, image, create_time, update_time)
     values (#{name}, #{price}, #{status}, #{categoryId}, #{description}, #{image}, #{createTime}, #{updateTime})
     </insert>

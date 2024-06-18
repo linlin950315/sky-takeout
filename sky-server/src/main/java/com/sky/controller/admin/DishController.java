@@ -34,5 +34,8 @@ public class DishController {
         dishService.insertDishAndFlavor(dishDTO);
         return Result.success();
     }
+    /*
+     * 菜品分页查询
+     */
 
 }
