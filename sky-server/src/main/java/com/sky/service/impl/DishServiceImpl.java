@@ -7,12 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.result.PageResult;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 
 @Service
 
@@ -47,6 +52,19 @@ public class DishServiceImpl implements DishService {
             dishFlavorMapper.insertBatch(flavors);
 
         }
+
+    }
+
+    /*
+     * 分页查询
+     */
+    public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
+
+        PageHelper.startPage(dishPageQueryDTO.getPage(),
+                dishPageQueryDTO.getPageSize()); // 调页码 每页记录数
+        Page<DishVO> page = dishMapper.pageQuery(dishPageQueryDTO); // 返回值用DishVO，categoryName
+        // 封装total records
+        return new PageResult(page.getTotal(), page.getResult()); // 获得total，records
 
     }
 
