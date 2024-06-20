@@ -9,12 +9,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -24,9 +28,8 @@ import com.sky.vo.DishVO;
 public class DishServiceImpl implements DishService {
     @Autowired
     DishMapper dishMapper;
-
-    @Autowired
     DishFlavorMapper dishFlavorMapper;
+    SetmealDishMapper setmealDishMapper;
 
     /*
      * 新增菜品+flavor
@@ -68,4 +71,30 @@ public class DishServiceImpl implements DishService {
 
     }
 
+    /*
+     * 根据id 批量删除菜品
+     * 业务规则。一次删1个或多个菜；起售中，被套餐关联的不能删除；删除后关联的口味也要被删除
+     */
+    // @Transactional // 事务注解 里面的两个方法 原子性，要么全成功要么全失败
+    public void deleteDishBatch(List<Long> ids) {
+        // 判断是否能删除 启售中不能删除。先遍历数组 取id 查status
+        for (Long id : ids) {
+            Dish dish = dishMapper.getById(id);
+            if (dish.getStatus() == StatusConstant.ENABLE) { // == 1 也行 但建议使用常量
+                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+            }
+        }
+        // 判断是否能删除 若被套餐关联 也不能删除
+        List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishIds(ids);
+        if (setmealIds != null && setmealIds.size() > 0) {
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+        }
+
+        // 判断是否能删除 可删除 即删除菜品数据
+        for (Long id : ids) {
+            dishMapper.deleteById(id);
+            // 删除菜关联的口味数据)
+            // dishFlavorMapper.deleteByDishId(id);
+        }
+    }
 }

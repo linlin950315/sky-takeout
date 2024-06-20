@@ -1,5 +1,6 @@
 package com.sky.mapper;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -44,5 +45,16 @@ public interface DishMapper {
      * select d.*,c.name as categoryName from dish d left outer join category c on
      * d.category_id = c.id
      */
+
+    /*
+     * 根据id 批量删除菜品
+     */
+    // 判断是否能删除 启售中不能删除。先遍历数组 取id 查status
+    @Select("select * from dish where id = #{id}")
+    Dish getById(Long id);
+
+    // 删除菜品数据
+    @Delete("delete from dish where id = #{id}")
+    void deleteById(Long id);
 
 }

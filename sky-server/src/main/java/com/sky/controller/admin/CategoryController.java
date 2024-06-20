@@ -28,8 +28,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin/category")
 @Api(tags = "分类相关接口")
 @Slf4j
-public class CategoryController {
 
+public class CategoryController {
+    // autowired依赖注入
     @Autowired
     private CategoryService categoryService;
 
