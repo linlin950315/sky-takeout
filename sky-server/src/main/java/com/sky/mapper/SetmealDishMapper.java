@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface SetmealDishMapper {
-    // TODO
     /*
      * 根据菜品Id查套餐Id
      */

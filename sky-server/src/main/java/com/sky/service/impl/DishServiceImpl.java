@@ -27,9 +27,11 @@ import com.sky.vo.DishVO;
 
 public class DishServiceImpl implements DishService {
     @Autowired
-    DishMapper dishMapper;
-    DishFlavorMapper dishFlavorMapper;
-    SetmealDishMapper setmealDishMapper;
+    private DishMapper dishMapper;
+    @Autowired
+    private DishFlavorMapper dishFlavorMapper;
+    @Autowired
+    private SetmealDishMapper setmealDishMapper;
 
     /*
      * 新增菜品+flavor
@@ -85,16 +87,17 @@ public class DishServiceImpl implements DishService {
             }
         }
         // 判断是否能删除 若被套餐关联 也不能删除
+        // TODO
         List<Long> setmealIds = setmealDishMapper.getSetmealIdsByDishIds(ids);
         if (setmealIds != null && setmealIds.size() > 0) {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
 
-        // 判断是否能删除 可删除 即删除菜品数据
+        // 判断是否能删除 可删除 即删除菜品数据ok
         for (Long id : ids) {
             dishMapper.deleteById(id);
-            // 删除菜关联的口味数据)
-            // dishFlavorMapper.deleteByDishId(id);
+            // 删除菜关联的口味数据ok
+            dishFlavorMapper.deleteByDishId(id);
         }
     }
 }
