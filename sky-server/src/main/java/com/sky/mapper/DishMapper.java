@@ -1,5 +1,7 @@
 package com.sky.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
@@ -57,4 +59,8 @@ public interface DishMapper {
     @Delete("delete from dish where id = #{id}")
     void deleteById(Long id);
 
+    // 根据菜品id集合批量删除菜品
+    void deleteByIds(List<Long> ids);
+
 }
+// sql批量删除语句：delete from dish where id in (?,?,?) delete后面没有型号

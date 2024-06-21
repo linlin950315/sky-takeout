@@ -9,4 +9,22 @@
         </foreach>
     </insert>
 
+    <!--根据菜品id集合批量删除口味数据-->
+    <delete id="deleteByDishIds">
+        delete from dish_flavor where dish_id in
+        <foreach collection="dishids" open="(" close=")" separator="," item="dishId">
+            #{dishId}
+        </foreach>
+    </delete>
+
+    <!--批量删除-->
+    <delete id="deleteByDishId">
+        delete from dish_flavor where dish_id = #{dishId}
+    </delete>
+
+    <!-- 根据菜品id集合批量删除菜品-->
+    <delete id="deleteByIds">delete from dish where id in
+        <foreach collection="ids" open="(" close=")" separator="," item="id"> #{id}</foreach>
+    </delete>
+
 </mapper>
