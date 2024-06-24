@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor // 创建一个无参构造函数
+@AllArgsConstructor // 添加一个构造函数，该构造函数含有所有已声明字段属性参数
 public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -2,7 +2,6 @@ package com.sky.mapper;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -55,9 +54,9 @@ public interface DishMapper {
     @Select("select * from dish where id = #{id}")
     Dish getById(Long id);
 
-    // 删除菜品数据
-    @Delete("delete from dish where id = #{id}")
-    void deleteById(Long id);
+    // 删除菜品数据 在for循环内 被优化了
+    // @Delete("delete from dish where id = #{id}")
+    // void deleteById(Long id);
 
     // 根据菜品id集合批量删除菜品
     void deleteByIds(List<Long> ids);

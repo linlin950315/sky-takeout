@@ -19,7 +19,7 @@
 <!-- 
 <delete id="deleteByDishIds">
  delete from dish_flavor where dish_id in
-<foreach collection="dishids"：collection指定了要迭代的集合参数的名称。
+<foreach collection="ids"：collection指定了要迭代的集合参数的名称。
  在这种情况下，dishids是传递给这个方法的集合参数的名称。
  这意味着你在调用这个deleteByDishIds方法时，需要传递一个名为dishids的集合（如List<Long>或Set<Long>等）。
 -->
