@@ -9,22 +9,26 @@
         </foreach>
     </insert>
 
-    <!--根据菜品id集合批量删除口味数据-->
-    <delete id="deleteByDishIds">
-        delete from dish_flavor where dish_id in
-        <foreach collection="dishids" open="(" close=")" separator="," item="dishId">
-            #{dishId}
-        </foreach>
-    </delete>
+  <!--根据菜品id集合批量删除口味数据-->
+  <delete id="deleteByDishIds">
+    delete from dish_flavor where dish_id in
+    <foreach collection="ids" open="(" close=")" separator="," item="dishId">
+        #{dishId}
+    </foreach>
+</delete>
+<!-- 
+<delete id="deleteByDishIds">
+ delete from dish_flavor where dish_id in
+<foreach collection="dishids"：collection指定了要迭代的集合参数的名称。
+ 在这种情况下，dishids是传递给这个方法的集合参数的名称。
+ 这意味着你在调用这个deleteByDishIds方法时，需要传递一个名为dishids的集合（如List<Long>或Set<Long>等）。
+-->
 
-    <!--批量删除-->
+<!-- 
+    批量删除的xml
     <delete id="deleteByDishId">
         delete from dish_flavor where dish_id = #{dishId}
     </delete>
-
-    <!-- 根据菜品id集合批量删除菜品-->
-    <delete id="deleteByIds">delete from dish where id in
-        <foreach collection="ids" open="(" close=")" separator="," item="id"> #{id}</foreach>
-    </delete>
+    -->
 
 </mapper>
