@@ -26,7 +26,7 @@ import com.sky.vo.DishVO;
 @Service
 
 public class DishServiceImpl implements DishService {
-    @Autowired
+    @Autowired // 这里的每条都注入，否则会有注入不到的mapper
     private DishMapper dishMapper;
     @Autowired
     private DishFlavorMapper dishFlavorMapper;

@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  * jwt令牌校验的拦截器
  */
 @Component
+// @Component某个类不能归为controller、service、dao，但也需要被spring容器管理
 @Slf4j
 public class JwtTokenAdminInterceptor implements HandlerInterceptor {
 

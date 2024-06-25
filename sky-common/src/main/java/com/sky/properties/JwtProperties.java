@@ -1,10 +1,12 @@
 package com.sky.properties;
 
-import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
+import lombok.Data;
+
 @Component
+// @Component某个类不能归为controller、service、dao，但也需要被spring容器管理
 @ConfigurationProperties(prefix = "sky.jwt")
 @Data
 public class JwtProperties {

@@ -34,7 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/admin/employee")
 @Slf4j
 public class EmployeeController {
-    // autowired依赖注入
+    // autowired依赖注入 运行时ioc容器会提供该类型的bean对象，并赋值给该变量
+    // 依赖注入：将某个类的对象，赋值给某个变量
     @Autowired
     private EmployeeService employeeService;
     @Autowired

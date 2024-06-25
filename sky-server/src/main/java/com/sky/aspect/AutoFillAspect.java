@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 //自定义切面 实现公共字段自动填充
 @Aspect
+// @Component某个类不能归为controller、service、dao，但也需要被spring容器管理
 @Component
 @Slf4j // 记录日志
 

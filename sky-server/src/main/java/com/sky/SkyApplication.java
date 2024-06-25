@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import lombok.extern.slf4j.Slf4j;
 
-@SpringBootApplication
+@SpringBootApplication // 具有包扫描作用。默认扫描当前包及其子包
 @EnableTransactionManagement // 开启注解方式的事务管理
 @Slf4j
 public class SkyApplication {
