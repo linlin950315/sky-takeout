@@ -61,5 +61,8 @@ public interface DishMapper {
     // 根据菜品id集合批量删除菜品
     void deleteByIds(List<Long> ids);
 
+    // 修改Dish表基本信息
+    void update(Dish dish);
+
 }
 // sql批量删除语句：delete from dish where id in (?,?,?) delete后面没有型号
