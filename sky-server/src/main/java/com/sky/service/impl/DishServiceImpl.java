@@ -77,7 +77,7 @@ public class DishServiceImpl implements DishService {
      * 根据id 批量删除菜品
      * 业务规则。一次删1个或多个菜；起售中，被套餐关联的不能删除；删除后关联的口味也要被删除
      */
-    // @Transactional // 事务注解 里面的两个方法 原子性，要么全成功要么全失败
+    @Transactional // 事务注解 里面的两个方法 原子性，要么全成功要么全失败
     public void deleteDishBatch(List<Long> ids) {
         // 先判断是否能删除 启售中不能删除。先遍历数组 取id 查status
         for (Long id : ids) {
@@ -131,6 +131,7 @@ public class DishServiceImpl implements DishService {
     /*
      * 修改菜品 基本信息 口味信息
      */
+    @Transactional
     public void updateWithFlavor(DishDTO dishDTO) {
         // 先copyProperties 从DishDTO到Dish
         Dish dish = new Dish();
@@ -143,14 +144,13 @@ public class DishServiceImpl implements DishService {
         // 再重新添加新口味数据
         List<DishFlavor> flavors = dishDTO.getFlavors();
         if (flavors != null && flavors.size() > 0) {
+
             // 遍历集合
             flavors.forEach(dishFlavor -> {
-                dishFlavor.setDishId(dishId);
+                dishFlavor.setDishId(dishDTO.getId());
             });
             // 批量插入口味表数据
             dishFlavorMapper.insertBatch(flavors);
-
         }
     }
-
 }
