@@ -91,4 +91,14 @@ public class DishController {
         return Result.success();
     }
 
+    /*
+     * 启用禁用分类
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用菜品分类")
+    public Result<String> statusSetting(@PathVariable Integer status, Long id) {
+        dishService.statusSetting(status, id);
+        return Result.success();
+    }
+
 }

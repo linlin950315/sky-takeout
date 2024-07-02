@@ -9,6 +9,7 @@ import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
+import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
 import com.sky.vo.DishVO;
 
@@ -62,6 +63,12 @@ public interface DishMapper {
     void deleteByIds(List<Long> ids);
 
     // 修改Dish表基本信息
+    @AutoFill(value = OperationType.UPDATE)
+    void update(Setmeal setmeal);
+
+    /**
+     * 启用禁用 修改分类
+     */
     @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
 

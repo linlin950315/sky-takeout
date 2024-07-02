@@ -33,4 +33,9 @@ public interface DishService {
      * 修改菜品 基本信息 口味信息
      */
     public void updateWithFlavor(DishDTO dishDTO);
+
+    /*
+     * 启用禁用分类
+     */
+    public void statusSetting(Integer status, Long id);
 }
